@@ -1,4 +1,5 @@
-PYMM
+
+#PYIMM
 
 
 Biblioteca para manipular arquivos de imagens
