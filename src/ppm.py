@@ -59,4 +59,3 @@ class PPM: """ Write image file format ppm.  """
     def save(self):
         self.Img_file.close()
         print 'Saved...'
-        pass
