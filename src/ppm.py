@@ -13,7 +13,8 @@
 from matrixImage import*
 #Manipulate image file ppm format (save file).  
 
-class PPM: """ Write image file format ppm.  """
+class PPM:
+    """ Write image file format ppm.  """
     def __init__(self, name_file=None, row=None, columm=None, mode='color'):
         self.name_file = name_file
         self.row, self.columm = row, columm
