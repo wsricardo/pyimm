@@ -1,4 +1,4 @@
-Python 2.7.13 (default, Jan 19 2017, 14:48:08) 
+2Python 2.7.13 (default, Jan 19 2017, 14:48:08) 
 [GCC 6.3.0 20170118] on linux2
 Type "copyright", "credits" or "license()" for more information.
 >>> j = open('Documentos/test.pmm','r')
@@ -28,5 +28,30 @@ IOError: [Errno 2] No such file or directory: 'Documentos/test.pmm'
 	elif i.isalnum():
 		print 'pixels',i
 
-	else:
-		print 'Error format ppm read!'
+>>> mode, dim, count  = None, (0,0), 0
+>>> # Codes count = 0
+	if img_file[0] == 'P3':
+		mode = 'color'
+		count  = count + 1
+	elif '#' in img_file[1]:
+		count = count + 1
+	try :
+
+		dim = tuple( img_file[2].split(' ') )
+	except Error:
+		print 'Error in obtain dimension of image file PPM.'
+
+	img = img_file[3:]
+
+	# Percorrendo pixels. Map pixels in file PPM.
+	for i in img:
+		if int(i)%3==0:
+			im[x][y].b = i
+			#proximo pixel
+			x += 1
+			y += 1
+		elif 1:
+			
+			im[x][y].r = i
+		elif 2:
+			img[x][y].b = i
