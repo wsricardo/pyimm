@@ -38,10 +38,12 @@ IOError: [Errno 2] No such file or directory: 'Documentos/test.pmm'
 	try :
 
 		dim = tuple( img_file[2].split(' ') )
+		dimen = ( int( dim[0] ), int( dim[1] ) )
 	except Error:
 		print 'Error in obtain dimension of image file PPM.'
-
+	#img1 = Image(dimen, mode)
 	img = img_file[3:]
+	#img1.pixels = img
 
 	# Percorrendo pixels. Map pixels in file PPM.
 	for i in img:
