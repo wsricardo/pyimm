@@ -1,0 +1,32 @@
+Python 2.7.13 (default, Jan 19 2017, 14:48:08) 
+[GCC 6.3.0 20170118] on linux2
+Type "copyright", "credits" or "license()" for more information.
+>>> j = open('Documentos/test.pmm','r')
+
+Traceback (most recent call last):
+  File "<pyshell#0>", line 1, in <module>
+    j = open('Documentos/test.pmm','r')
+IOError: [Errno 2] No such file or directory: 'Documentos/test.pmm'
+>>> j = open('Documentos/test.ppm','r')
+>>> im = j.read()
+>>> im
+'P3\n# CREATOR: GIMP PNM Filter Version 1.1\n4 4\n255\n157\n157\n157\n255\n255\n255\n255\n255\n255\n249\n148\n148\n255\n255\n255\n132\n212\n150\n187\n253\n247\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n255\n'
+>>> img = im.split('\n')
+>>> img
+['P3', '# CREATOR: GIMP PNM Filter Version 1.1', '4 4', '255', '157', '157', '157', '255', '255', '255', '255', '255', '255', '249', '148', '148', '255', '255', '255', '132', '212', '150', '187', '253', '247', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '255', '']
+>>> # Extract data from img, and dimesion,mode,pixels of image
+>>> for i in img:
+	print i, type(i)
+	if i=='P3':
+		print 'Mode color'
+		mode = 'color'
+	elif '#' in i:
+		print 'Comment'
+	elif ' ' in i:
+		temp = i.split(' ')
+		dim = (int(temp[0]),int(temp[1]))
+	elif i.isalnum():
+		print 'pixels',i
+
+	else:
+		print 'Error format ppm read!'

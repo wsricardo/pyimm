@@ -37,7 +37,7 @@ class PPM:
         self.Img_file.read(self.name_file)
 
         #Reading content in file image PPM
-        self
+        
 
     def writePixel(self,Pixel,i,j):
         self.Pixel = Pixel
