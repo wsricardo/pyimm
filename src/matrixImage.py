@@ -8,6 +8,8 @@
 # Created:     2013
 # Copyright:   (c) 2013
 # Licence:     GPL
+# Blog:		www.wanartsci.blogspot.com
+#		www.gaenos.blogspot.com
 
 # Module to create and manipulate Image.
 # Function lambda to create matrix with 0's.
