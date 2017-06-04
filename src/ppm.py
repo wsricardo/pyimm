@@ -28,15 +28,28 @@ class PPM:
         
     #No implemented in the momment
     def read(self,imname=None):
-        self.Img_file.read()
+
+	i,j,k,c = 0,0,0,None
         if imname != None:
             self.name_file= imname
             self.Img_file = open(self.name_file, 'wr')
         else:
             print('\nError! Define file_name\n')
-        self.Img_file.read(self.name_file)
 
+        im_temp = self.Img_file.read()
+	img = im_temp.split('\n')
+	self.mode = img[0]
+	temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
+	self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
         #Reading content in file image PPM
+	for c in img[3:]:
+		if k == 0:
+			self.Img[i][j].r = c
+			k += 1
+		elif k == 1:
+			
+			
+			
         
 
     def writePixel(self,Pixel,i,j):
