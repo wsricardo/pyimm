@@ -43,25 +43,37 @@ class PPM:
 	self.mode = img[0]
 	temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
 	self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
-        #Reading content in file image PPM in list
-	for c in img[3:]:
-		# Pixels i,j
-		if k == 0:
-			self.Img[i][j].r = c
-			k += 1
-			j += 1 # next element colum from line i
-		elif k == 1:
-			self.Img[i][j] = c
-			k += 1
-			j += 1 
-		else:
-			k = 0
-			i += 1 # Next line i. After 3 channels R,G,B color if mode == 'color' (P3 header file PPM)
-	# If image mode is black/white
-	# c = 0
-	# self.Img[i][j] = c
-	# c += 1
-			
+
+	# Image mode color
+	if self.mode == 'P3':
+		#Reading content in file image PPM in list
+		for c in img[3:]:
+			# Pixels i,j
+			if k == 0:
+				self.Img[i][j].r = c
+				k += 1
+				j += 1 # next element colum from line i
+			elif k == 1:
+				self.Img[i][j] = c
+				k += 1
+				j += 1 
+			else:
+				k = 0
+				i += 1 # Next line i. After 3 channels R,G,B color if mode == 'color' (P3 header file PPM)
+
+	# Black and White color
+	else:
+		
+		# If image mode is black/white
+		# c = 0
+		for c in img[3:]:
+			if i > self.dim[0]:
+				i += 1
+			else:
+				self.Img[i][j] = c
+				j += 1
+				
+			c += 1	
 			
         
 
