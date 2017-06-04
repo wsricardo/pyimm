@@ -16,10 +16,12 @@ from matrixImage import*
 #Manipulate image file ppm format (save file).  
 
 class PPM:
-    """ Write image file format ppm.  """
+    """ Write and read image file format ppm.  """
+
     def __init__(self, name_file=None, row=None, columm=None, mode='color'):
         self.name_file = name_file
         self.row, self.columm = row, columm
+	self.dim = (self.row, self.columm)
         self.mode = mode
         if file_name != None:
             self.Img_file = open(name_file,'wr')
@@ -28,13 +30,13 @@ class PPM:
             #                                                   Pixel[i][j].g+' '+
             #                                                   Pixel[i][j].b))
         
-    #No implemented in the momment
+    # Open read file PPM images.
     def read(self,imname=None):
 
 	i,j,k,c = 0,0,0,None
         if imname != None:
             self.name_file= imname
-            self.Img_file = open(self.name_file, 'wr')
+            self.Img_file = open(self.name_file, 'a')
         else:
             print('\nError! Define file_name\n')
 
