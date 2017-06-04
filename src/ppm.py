@@ -23,6 +23,8 @@ class PPM:
         self.row, self.columm = row, columm
 	self.dim = (self.row, self.columm)
         self.mode = mode
+	self.Img_file = None
+	self.Img = None # self.Img = MatrixImage(self.dim,self.mode)
         if file_name != None:
             self.Img_file = open(name_file,'wr')
             #self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
