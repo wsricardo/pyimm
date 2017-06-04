@@ -57,3 +57,16 @@ IOError: [Errno 2] No such file or directory: 'Documentos/test.pmm'
 			im[x][y].r = i
 		elif 2:
 			img[x][y].b = i
+
+	# Percorrendo pixels Versão 2. Map pixels version 2
+	k = 0
+	for i in img:
+		if k == 0:
+			im[x][y].r = i
+			k += 1
+		elif k == 1:
+			im[x][y].g = i
+			k += 1
+		else:
+			img[x][y].b = i
+			k = 0
