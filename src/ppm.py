@@ -52,7 +52,7 @@ class PPM:
         self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
         self.Img = MatrixImage( self.dim, self.mode )
         print(type(img),img)
-        img = map( lambda i: int(i), img[3:] ) # Convert of string to integer color pixel values from file.
+        img = map( lambda i: int(i), img[4:] ) # Convert of string to integer color pixel values from file.
         # Image mode color
         if self.mode == 'P3':
             """
@@ -73,12 +73,13 @@ class PPM:
                     j = 0
                     i += 1
                 # Next channel rgb element value.
-                k += 1"""
+                k += 1
+            """
             #
             # Reading content file in PPM and set Matrix image. Second Implementation.
             # Start c in element 3 in the list img (list with rgb values of file PPM)
             #
-            c = 3
+            c = 4
             # Map pixels from file with Img.
             while i < self.dim[0]:
                 # Next channel rgb element value.
