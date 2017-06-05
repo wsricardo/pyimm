@@ -13,18 +13,18 @@
 #!/usr/bin/env python
 
 from matrixImage import*
-#Manipulate image file ppm format (save file).  
 
+# Manipulate image file ppm format (save file).  
 class PPM:
     """ Write and read image file format ppm.  """
 
     def __init__(self, name_file=None, row=None, columm=None, mode='color'):
         self.name_file = name_file
         self.row, self.columm = row, columm
-	self.dim = (self.row, self.columm)
+        self.dim = (self.row, self.columm)
         self.mode = mode
-	self.Img_file = None
-	self.Img = None # self.Img = MatrixImage(self.dim,self.mode)
+        self.Img_file = None
+        self.Img = None # self.Img = MatrixImage(self.dim,self.mode)
         if file_name != None:
             self.Img_file = open(name_file,'wr')
             #self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
@@ -34,50 +34,53 @@ class PPM:
         
     # Open read file PPM images.
     def read(self,imname=None):
-
-	i,j,k,c = 0,0,0,None
+        """
+		Open read file PPM and return image (matrixImage).
+        """
+        i,j,k,c = 0,0,0,None
         if imname != None:
             self.name_file= imname
-            self.Img_file = open(self.name_file, 'a')
+            self.Img_file = open(self.name_file, 'r')
         else:
             print('\nError! Define file_name\n')
 
         im_temp = self.Img_file.read()
-	img = im_temp.split('\n')
-	self.mode = img[0]
-	temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
-	self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
+        img = im_temp.split('\n')
+        self.mode = img[0]
+        temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
+        self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
+        self.Img = MatrixImage( self.dim, self.mode )
+        img = map( lambda i: int(i), img[3:] ) # Convert of string to integer color pixel values from file.
+        # Image mode color
+        if self.mode == 'P3':
+            # Reading content in file image PPM in list
+            for c in img[3:]:
+                    # Pixels i,j
+                if k == 0:
+                    self.Img[i][j].r = c
+                    k += 1
+                    j += 1 # next element colum from line i
+                elif k == 1:
+                    self.Img[i][j] = c
+                    k += 1
+                    j += 1 
+                else:
+                    k = 0
+                    i += 1 # Next line i. After 3 channels R,G,B color if mode == 'color' (P3 header file PPM)
 
-	# Image mode color
-	if self.mode == 'P3':
-		#Reading content in file image PPM in list
-		for c in img[3:]:
-			# Pixels i,j
-			if k == 0:
-				self.Img[i][j].r = c
-				k += 1
-				j += 1 # next element colum from line i
-			elif k == 1:
-				self.Img[i][j] = c
-				k += 1
-				j += 1 
-			else:
-				k = 0
-				i += 1 # Next line i. After 3 channels R,G,B color if mode == 'color' (P3 header file PPM)
-
-	# Black and White color
-	else:
+                # Black and White color
+        else:
 		
-		# If image mode is black/white
-		# c = 0
-		for c in img[3:]:
-			if i > self.dim[0]:
-				i += 1
-			else:
-				self.Img[i][j] = c
-				j += 1
+            # If image mode is black/white
+            # c = 0
+            for c in img[3:]:
+                if i > self.dim[0]:
+                    i += 1
+                else:
+                    self.Img[i][j] = c
+                    j += 1
 				
-			c += 1	
+                    #c += 1	
 			
         
 
@@ -101,4 +104,4 @@ class PPM:
 
     def save(self):
         self.Img_file.close()
-        print 'Saved...'
+        print('Saved...')
