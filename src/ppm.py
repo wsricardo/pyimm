@@ -25,7 +25,7 @@ class PPM:
         self.mode = mode
         self.Img_file = None
         self.Img = None # self.Img = MatrixImage(self.dim,self.mode)
-        if self.name_file != None:
+        if self.name_file is not None:
             self.Img_file = open(self.name_file,'wr')
             #self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
             #self.putPixel = lambda Pixel: self.Img_file.write( (Pixel[i][j].r+' ' +
@@ -33,12 +33,12 @@ class PPM:
             #                                                   Pixel[i][j].b))
         
     # Open read file PPM images.
-    def read(self,imname=None):
+    def read(self, imname=None):
         """
-		Open read file PPM and return image (matrixImage).
+        Open read file PPM and return image (matrixImage).
         """
         i, j, k, c = 0, 0, 0, None
-        if imname != None:
+        if imname is not None:
             self.name_file= imname
             self.Img_file = open(self.name_file, 'r')
         else:
@@ -47,12 +47,12 @@ class PPM:
         im_temp = self.Img_file.read()
         img = im_temp.split('\n')
         self.mode = img[0]
-        img.pop(-1) # Remove element in index -1. (end list).
+        img.pop(-1) # Remove element in index -1. (end list, element empty).
         temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
-        self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n collums.
-        self.Img = MatrixImage( self.dim, self.mode )
+        self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n columns.
+        self.Img = MatrixImage( self.dim, self.mode ) # Create object image fro MatrixImage class.
         print(type(img),img)
-        img = map( lambda i: int(i), img[4:] ) # Convert of string to integer color pixel values from file.
+        img = map( lambda p: int(p), img[4:] ) # Convert of string to integer color pixel values from file.
         # Image mode color
         if self.mode == 'P3':
             """
@@ -81,6 +81,7 @@ class PPM:
             #
             c = 4
             # Map pixels from file with Img.
+            # Error here
             while i < self.dim[0]:
                 # Next channel rgb element value.
                 # k += 1 # if k start in -1
@@ -127,11 +128,11 @@ class PPM:
 
     def write(self, Img):
         self.Img = Img
-        self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
+        self.Img_file.write('P3\n'+str(self.columm)+' '+str(self.row)+'\n255\n')
         for i in range(0,self.row):
             for j in range(0,self.columm):
-                self.Img_file.write(str(self.Img[i][j].r)+' '
-                                    +str(self.Img[i][j].g)+' '
+                self.Img_file.write(str(self.Img[i][j].r)+'\n'
+                                    +str(self.Img[i][j].g)+'\n'
                                     +str(self.Img[i][j].b)+'\n')
 
         self.save()

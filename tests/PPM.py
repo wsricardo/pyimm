@@ -19,6 +19,10 @@ class PPM:
         Write image file format ppm.
     """
     def __init__(self, name_file, row, columm, mode='color'):
+        """
+
+        :rtype: object
+        """
         self.name_file = name_file
         self.row, self.columm = row, columm
         self.mode = mode
