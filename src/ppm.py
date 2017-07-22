@@ -83,27 +83,10 @@ class PPM:
             # Map pixels from file with Img.
             # Error here
             while i < self.dim[0]:
-                # Next channel rgb element value.
-                # k += 1 # if k start in -1
                 while j < self.dim[1]:
-                    # Pixels i,j
-                    
-                    if k == 0:
-                        self.Img.Matrix[i][j].r = img[c]
-                        j += 1
-                    elif k == 1:
-                        self.Img.Matrix[i][j].g = img[c]              
-                        j += 1
-                    elif k == 2:
-                        self.Img.Matrix[i][j].b = img[c]
-                        k = 0
-                # Next line i, set columm j = 0
-                i += 1
-                j = 0
-                # img
-                c += 1
-                # Next channel rgb element value
-                k += 1
+                    self.Img.Matrix[i][j] = c
+
+                   
         # Black and White color
         elif self.mode == 'P2':
 		
