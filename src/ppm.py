@@ -10,7 +10,7 @@
 # Blog:		www.wanartsci.blogspot.com
 #		www.gaenos.blogspot.com
 #-------------------------------------------------------------------------------
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from matrixImage import*
 
@@ -60,8 +60,10 @@ class PPM:
         # Image mode color
         if self.mode == 'P3':
             
-            # First implementation to map pixels in file and set Matrix of image.
+            # First implementation to map pixels in 
+            #file and set Matrix of image.
             # Reading content in file image PPM in list
+            # Read elements from list to matrix image
             for k in range(l):
                 while j <= self.dim[0]:
                     self.Img[i][j].r  = img[k].r 
