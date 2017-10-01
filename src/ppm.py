@@ -53,39 +53,24 @@ class PPM:
         self.Img = MatrixImage( self.dim, self.mode ) # Create object image fro MatrixImage class.
         print(type(img),img)
         img = map( lambda p: int(p), img[4:] ) # Convert of string to integer color pixel values from file.
+        
+        l = self.dim[0]*self.dim[1] # Tamanho da imagem para um vetor.
+        k,i,j = 0
+
         # Image mode color
         if self.mode == 'P3':
-            """
+            
             # First implementation to map pixels in file and set Matrix of image.
             # Reading content in file image PPM in list
-            for c in img[3:]:
-                print(i,j)
-                # Pixels i,j
-                if k == 0:
-                    self.Img.Matrix[i][j].r = c
-                    j += 1 # next element colum from line i
-                elif k == 1:
-                    self.Img.Matrix[i][j].g = c                    
-                    j += 1 
-                elif k == 2:
-                    self.Img.Matrix[i][j].b = c
-                    k = 0
-                    j = 0
-                    i += 1
-                # Next channel rgb element value.
-                k += 1
-            """
-            #
-            # Reading content file in PPM and set Matrix image. Second Implementation.
-            # Start c in element 3 in the list img (list with rgb values of file PPM)
-            #
-            c = 4
-            # Map pixels from file with Img.
-            # Error here
-            while i < self.dim[0]:
-                while j < self.dim[1]:
-                    self.Img.Matrix[i][j] = c
+            for k in range(l):
+                while j <= self.dim[0]:
+                    self.Img[i][j].r  = img[k].r 
+                    self.Img[i][j].b  = img[k].g 
+                    self.Img[i][j].g  = img[k].b
 
+                # Proxima linha.
+                i = i + 1
+            
                    
         # Black and White color
         elif self.mode == 'P2':
