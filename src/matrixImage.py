@@ -40,9 +40,12 @@ class MatrixImage:
         self.dim = dim
         self.mode = mode
         self.fileformat = fileformat
-        self.Matrix = MatrixImRGB(dim[0], dim[1])
+        #self.Matrix = MatrixImRGB(dim[0], dim[1])
+        self.Matrix = [ [ RGB() for j in range(n) ] for i in range(m) ]
         if mode == "rgb":
             print("RGB mode")
+        elif not mode.lower() in ('rgb','bw'):
+            print("Modes: rgb or black and white (bw)")
 
 
 class RGB:

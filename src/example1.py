@@ -15,7 +15,6 @@ A = [  [  1 if i==j else 0  for i in range(m)] for j in range(n)]
 # Output: >>> [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 print('\n',A[0],'\n',A[1],'\n',A[2],'\n')
 # 
-# Tests modules
 import matrixImage
 matrix = lambda m,n: [ [ 0 for j in range(n)] for i in range(m) ]
 
