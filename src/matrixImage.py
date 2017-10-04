@@ -27,7 +27,9 @@ class MatrixImage:
     def __init__(self, dim, mode="rgb", fileformat=None):
         # type: (object, object, object) -> object
         """
-        Create Image object to manipulation images file ppm, color mode rgb.
+        Create Image object to manipulation images 
+        file ppm, color mode rgb.
+        
         :rtype: object
         :type dim: list, of length 2.
         :type mode: object string.
@@ -40,7 +42,7 @@ class MatrixImage:
         self.fileformat = fileformat
         self.Matrix = MatrixImRGB(dim[0], dim[1])
         if mode == "rgb":
-            print "RGB mode"
+            print("RGB mode")
 
 
 class RGB:

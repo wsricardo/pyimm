@@ -12,6 +12,15 @@
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python3
 
+# --- NOTAS -  Modificações e Correções de Projeto ---
+# Necessário alterações e limpeza no codigo
+# na passagem para funções usar o argumento <MatrixImage>.Matrix
+# selecionando a matriz que representa a imagem para manipulação
+# correções na classe PPM no metodo __init__ para permitir
+# a criação da matriz duma imagem inicial com valores nulos
+# para casos de sinteses de imagens; tratando esse caso
+# de escolha de criação.
+
 from matrixImage import*
 
 # Manipulate image file ppm format (save file).  
@@ -47,12 +56,18 @@ class PPM:
         im_temp = self.Img_file.read()
         img = im_temp.split('\n')
         self.mode = img[0]
-        img.pop(-1) # Remove element in index -1. (end list, element empty).
-        temp = img[2].split() # dimension of image. It is in type 'string'. 'm n' in the line of file.
-        self.dim = ( int( temp[0] ), int( temp[1] ) ) # Tuple with dimension of image (m,n); m rows and n columns.
-        self.Img = MatrixImage( self.dim, self.mode ) # Create object image fro MatrixImage class.
+        # Remove element in index -1. (end list, element empty).
+        img.pop(-1) 
+        # dimension of image. It is in type 'string'. 'm n' in the line of file.
+        temp = img[2].split() 
+        # Tuple with dimension of image (m,n); m rows and n columns.
+        self.dim = ( int( temp[0] ), int( temp[1] ) )
+        # Create object image fro MatrixImage class.
+        self.Img = MatrixImage( self.dim, self.mode )
+
         print(type(img),img)
-        img = map( lambda p: int(p), img[4:] ) # Convert of string to integer color pixel values from file.
+        # Convert of string to integer color pixel values from file.
+        img = map( lambda p: int(p), img[4:] ) 
         
         l = self.dim[0]*self.dim[1] # Tamanho da imagem para um vetor.
         k,i,j = 0
@@ -61,7 +76,7 @@ class PPM:
         if self.mode == 'P3':
             
             # First implementation to map pixels in 
-            #file and set Matrix of image.
+            # file and set Matrix of image.
             # Reading content in file image PPM in list
             # Read elements from list to matrix image
             for k in range(l):
