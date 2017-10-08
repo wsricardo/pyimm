@@ -33,7 +33,7 @@ class PPM:
         self.dim = (self.row, self.columm)
         self.mode = mode
         self.Img_file = None
-        self.Img = None # self.Img = MatrixImage(self.dim,self.mode)
+        self.Img = MatrixImage(self.dim,self.mode).matrix
         if self.name_file is not None:
             self.Img_file = open(self.name_file,'wr')
             #self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
@@ -70,7 +70,6 @@ class PPM:
         img = map( lambda p: int(p), img[4:] ) 
         
         l = self.dim[0]*self.dim[1] # Tamanho da imagem para um vetor.
-        k,i,j = 0
 
         # Image mode color
         if self.mode == 'P3':
@@ -84,8 +83,9 @@ class PPM:
                     self.Img[i][j].r  = img[k].r 
                     self.Img[i][j].b  = img[k].g 
                     self.Img[i][j].g  = img[k].b
+                    j = j + 1 # Next collum.
 
-                # Proxima linha.
+                # Next line.
                 i = i + 1
             
                    
