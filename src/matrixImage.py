@@ -45,8 +45,8 @@ class MatrixImage:
         self.matrix = [ [ RGB() for j in range(n) ] for i in range(m) ]
         if mode == "rgb":
             print("RGB mode")
-        elif not mode.lower() in ('rgb','bw'):
-            print("Modes: rgb or black and white (bw)")
+        elif not mode.lower() in ('rgb','gray'):
+            print("Modes: rgb color or gray scale")
 
 
 class RGB:

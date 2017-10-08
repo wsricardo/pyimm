@@ -34,13 +34,10 @@ class PPM:
         self.mode = mode
         self.Img_file = None
         self.Img = MatrixImage(self.dim,self.mode).matrix
-        if self.name_file is not None:
-            self.Img_file = open(self.name_file,'wr')
-            #self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
-            #self.putPixel = lambda Pixel: self.Img_file.write( (Pixel[i][j].r+' ' +
-            #                                                   Pixel[i][j].g+' '+
-            #                                                   Pixel[i][j].b))
-        
+        #if self.name_file is not None:
+        self.Img_file = open(self.name_file,'w')
+        #else:
+        #    print('Error')
     # Open read file PPM images.
     def read(self, imname=None):
         """
@@ -63,7 +60,7 @@ class PPM:
         # Tuple with dimension of image (m,n); m rows and n columns.
         self.dim = ( int( temp[0] ), int( temp[1] ) )
         # Create object image fro MatrixImage class.
-        self.Img = MatrixImage( self.dim, self.mode )
+        self.Img = MatrixImage( self.dim, self.mode ).matrix
 
         print(type(img),img)
         # Convert of string to integer color pixel values from file.
