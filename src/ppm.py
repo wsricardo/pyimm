@@ -39,16 +39,15 @@ class PPM:
         #else:
         #    print('Error')
     # Open read file PPM images.
-    def read(self, imname=None):
+    def iread(self, imname=None):
         """
         Open read file PPM and return image (matrixImage).
         """
         i, j, k, c = 0, 0, 0, None
-        if imname is not None:
+        
+        if imname is not None: 
             self.name_file= imname
             self.Img_file = open(self.name_file, 'r')
-        else:
-            print('\nError! Define file_name\n')
 
         im_temp = self.Img_file.read()
         img = im_temp.split('\n')
@@ -63,8 +62,10 @@ class PPM:
         self.Img = MatrixImage( self.dim, self.mode ).matrix
 
         print(type(img),img)
-        # Convert of string to integer color pixel values from file.
-        img = map( lambda p: int(p), img[4:] ) 
+        # Convert of string to integer color pixel values from file. 
+        # version 2, maybealterations for version Python3 in this line.
+        #img = map( lambda p: int(p), img[4:] ) 
+        img = [int(i) for i in img[4:]
         
         l = self.dim[0]*self.dim[1] # Tamanho da imagem para um vetor.
 
@@ -95,7 +96,7 @@ class PPM:
                 if i >= self.dim[0]:
                     i += 1
                 else:
-                    self.Img.Matrix[i][j] = c
+                    self.Img[i][j] = c
                     j += 1
         else:
             return 0
