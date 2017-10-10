@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #-------------------------------------------------------------------------------
 # Name:         PPM
 # Purpose:      Save/Read image format PPM
@@ -10,7 +11,6 @@
 # Blog:		www.wanartsci.blogspot.com
 #		www.gaenos.blogspot.com
 #-------------------------------------------------------------------------------
-#!/usr/bin/env python3
 
 # --- NOTAS -  Modificações e Correções de Projeto ---
 # Necessário alterações e limpeza no codigo
@@ -25,21 +25,27 @@ from matrixImage import*
 
 # Manipulate image file ppm format (save file).  
 class PPM:
-    """ Write and read image file format ppm.  """
+    """ Write and read image file format ppm. Mode default 'read'only.
+        Por padrão o arquivo para o objeto 
+        é criado no modo leitura afim de
+        evitar perda de dados.
+    """
 
-    def __init__(self, name_file=None, row=None, columm=None, mode='color'):
+    def __init__(self, name_file=None, row=None, columm=None, mode='color', 
+            mode_file='r'):
         self.name_file = name_file
         self.row, self.columm = row, columm
         self.dim = (self.row, self.columm)
         self.mode = mode
         self.Img_file = None
         self.Img = MatrixImage(self.dim,self.mode).matrix
-        #if self.name_file is not None:
-        self.Img_file = open(self.name_file,'w')
-        #else:
-        #    print('Error')
+        # Decisão de Projeto : em qual modo abrir o arquivo?
+        # Obs.: modo escrita apaga coteudo sobrescrevendo 
+        # se já existe ou cria se não existir.
+        #self.Img_file = open(self.name_file,'w')
+    
     # Open read file PPM images.
-    def iread(self, imname=None):
+    def iread(self):
         """
         Open read file PPM and return image (matrixImage).
         """
@@ -63,9 +69,9 @@ class PPM:
 
         print(type(img),img)
         # Convert of string to integer color pixel values from file. 
-        # version 2, maybealterations for version Python3 in this line.
+        # version 2, maybe alterations for version Python3 in this line.
         #img = map( lambda p: int(p), img[4:] ) 
-        img = [int(i) for i in img[4:]
+        img = [ int(i) for i in img[4:] ]
         
         l = self.dim[0]*self.dim[1] # Tamanho da imagem para um vetor.
 
@@ -109,7 +115,7 @@ class PPM:
                              + str(Pixel[i][j].g)+' '+str(Pixel[i][j].b)))
         pass
 
-    def write(self, Img):
+    def write(self):
         self.Img = Img
         self.Img_file.write('P3\n'+str(self.columm)+' '+str(self.row)+'\n255\n')
         for i in range(0,self.row):
@@ -124,3 +130,4 @@ class PPM:
     def save(self):
         self.Img_file.close()
         print('Saved...')
+        return True
