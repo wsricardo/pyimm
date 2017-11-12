@@ -8,6 +8,6 @@ import matrixImage
 #img_file.write(im)
 
 # Test read image PPM
-im = ppm.PPM.iread('test.ppm')
+im = ppm.PPM('test.ppm').iread()
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Testando modullos ppm matrixImage
+# Testando modulos ppm matrixImage
 # Nota de desenvolvimento
 # Corrigir modulo matrixImage. Funcionamento
 # diferente do uso de map e funcao lambda

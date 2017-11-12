@@ -49,7 +49,6 @@ class PPM:
         if self.name_file is not None: 
             self.Img_file = open(self.name_file, 'r')
         else:
-            print('Error in read file. Define name of file image.')
             return False
         im_temp = self.Img_file.read()
         img = im_temp.split('\n')
@@ -108,8 +107,10 @@ class PPM:
                     self.Img[i][j] = c
                     j += 1
         else:
+			
             return 0
-        return 1
+        
+        return 1 # return self.Img
 
 
     def write(self):
