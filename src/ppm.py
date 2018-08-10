@@ -13,14 +13,14 @@
 #		www.gaenos.blogspot.com
 #-------------------------------------------------------------------------------
 
-# --- NOTAS -  Modificações e Correções de Projeto ---
-# Necessário alterações e limpeza no codigo
-# na passagem para funções usar o argumento <MatrixImage>.Matrix
-# selecionando a matriz que representa a imagem para manipulação
-# correções na classe PPM no metodo __init__ para permitir
-# a criação da matriz duma imagem inicial com valores nulos
+# --- NOTAS -  Modificaï¿½ï¿½es e Correï¿½ï¿½es de Projeto ---
+# Necessï¿½rio alteraï¿½ï¿½es e limpeza no codigo
+# na passagem para funï¿½ï¿½es usar o argumento <MatrixImage>.Matrix
+# selecionando a matriz que representa a imagem para manipulaï¿½ï¿½o
+# correï¿½ï¿½es na classe PPM no metodo __init__ para permitir
+# a criaï¿½ï¿½o da matriz duma imagem inicial com valores nulos
 # para casos de sinteses de imagens; tratando esse caso
-# de escolha de criação.
+# de escolha de criaï¿½ï¿½o.
 
 from matrixImage import*
 
@@ -34,9 +34,9 @@ class PPM:
         self.Img_file = None
         # Matrix for image (channels included if rgb)
         #self.Img = MatrixImage(self.dim,self.mode).matrix
-        # Decisão de Projeto : em qual modo abrir o arquivo?
+        # Decisï¿½o de Projeto : em qual modo abrir o arquivo?
         # Obs.: modo escrita apaga coteudo sobrescrevendo 
-        # se já existe ou cria se não existir.
+        # se jï¿½ existe ou cria se nï¿½o existir.
         #self.Img_file = open(self.name_file,'w')
     
     # Open read file PPM images.
