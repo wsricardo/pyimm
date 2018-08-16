@@ -12,20 +12,57 @@ class PPM(object):
 	# image matrix, and define dimension 
 	# of image when file.
 	def __parser_PPM(self, im_data):
+		"""
+		Extrair e checar cabeçalho e valores de pixels da imagem.
+		* P3/P2 (cor ou PB);
+		* tamanho da imagem;
+		* numero máximo de cores (255);
+		* valores inteiros entre 0 e 255 para pixeis 
+		da imagem (de acordo com tamanho).
+		"""
 		print('\nParser file PPM.')
 		if self.dim==None: self.dim = im_data[1].split()
 		im = MatrixImage(self.dim[0], self.dim[1])
+		if str.upper(im_data[0]) != 'P3' and str.upper(im_data[0]) != 'P2': return 'Fail in spec color(Must be P3 or P2).'
+		self.colormodel = im_data[0]
+		
+		# --- Pixels data from image file black/white mode. ----
+		__temp = im_data[3:] # Pixels from image.
+		_k_index = 3
+
+		if self.colormodel=='P3':
+			# Color image
+			for i in range(self.dim[0]):
+				for j in range(self.dim[1]):
+					if color_channel > 3:
+						color_channel = 1
+					else:
+						if color_channel == 1 :  im[i][j].r = __temp[_k_index] # red channel
+						elif color_channel == 2: im[i][j].g = __temp[_k_index] # green channel
+						elif color_channel == 3: im[i][j].b = __temp[_k_index] # blue channel
+						# im[i][j].r, im[i][j].g, im[i][j].b =  0, 0, 0
+						_k_index += 1 # Próximo linha do arquivo PPM.
+						color_channel += 1
+		
+		# Black White
+		elif self.colormodel=='P2':
+			for i in range(self.dim[0]):
+				for j in range(self.dim[1]):
+					im[i][j] = __temp[_k_index]
+		
+		# --- Pixels data from image file black/white mode. ---
+		
 		return im
 				
 	# Open file (ASCII).
 	def open(self, filename=None):
-		im_data = []
+		image_data = []
 		if filename != None:
 			with open(self.filename, 'r') as fn:
-				im_data.append(fn.read().split('\n'))
+				image_data.append(fn.read().split('\n'))
 		else:
 			pass
-		return self.__parser_PPM()
+		return self.__parser_PPM(image_data)
 	
 	# Save file image.
 	def save(self, Img, filename='image.ppm'):
