@@ -12,14 +12,16 @@ class PPM(object):
 	# image matrix, and define dimension 
 	# of image when file.
 	def __parser_PPM(self, im_data):
-		"""
+		'''
 		Extrair e checar cabeçalho e valores de pixels da imagem.
 		* P3/P2 (cor ou PB);
 		* tamanho da imagem;
 		* numero máximo de cores (255);
 		* valores inteiros entre 0 e 255 para pixeis 
 		da imagem (de acordo com tamanho).
-		"""
+
+		Parser PPM image file (ASCII format).
+		'''
 		print('\nParser file PPM.')
 		if self.dim==None: self.dim = im_data[1].split()
 		im = MatrixImage(self.dim[0], self.dim[1])
@@ -56,6 +58,9 @@ class PPM(object):
 				
 	# Open file (ASCII).
 	def open(self, filename=None):
+		'''
+		Open Image file.
+		'''
 		image_data = []
 		if filename != None:
 			with open(self.filename, 'r') as fn:
@@ -66,6 +71,12 @@ class PPM(object):
 	
 	# Save file image.
 	def save(self, Img, filename='image.ppm'):
+		'''
+		Save image.
+		open(self, Img, filename)
+		Img -> Object ImageMatrix
+		filename -> Name of file
+		'''
 		self.filename = filename
 		with open(self.filename,'w') as fn: # Open file. First write header of PPM file format.
 			if self.colormodel=='color':
@@ -80,7 +91,9 @@ class PPM(object):
 
 # Color model RGB
 class RGB(object):
-	
+	'''
+	Color mode RGB
+	'''
 	def __init__(self):
 		self.r = 0
 		self.g = 0
@@ -97,7 +110,9 @@ class RGB(object):
 
 # Image
 class MatrixImage(object):
-	
+	'''
+	Image matrix, operations/methods over matrix and vectors.. 
+	'''
 	def __init__(self, dim):
 		self.dim = dim
 		self.__lin = dim[0]
@@ -130,17 +145,19 @@ class MatrixImage(object):
 	#		return "%s" % 0
 		
 
-im = MatrixImage((2,3))
-print(im)
-im[0][1] = (120,0,0)
-print(im[0][1])
-print(im[0][0].r,im[0][0].g,im[0][0].b)
-print(im[0][0])
+# tests and examples of use modules.
+if __name__=="__main__":
+	im = MatrixImage((2,3))
+	print(im)
+	im[0][1] = (120,0,0)
+	print(im[0][1])
+	print(im[0][0].r,im[0][0].g,im[0][0].b)
+	print(im[0][0])
 
-# Show nheader and data for ppm file. Create use: $ python3 m_image.py > im.ppm
-#print('P3')
-#print('2 3')
-#print('255')
-#for j in range(2):
-#	for i in range(3):
-#		print(str(im[i][j].r)+'\n'+str(im[i][j].g)+'\n'+str(im[i][j].b))
+	# Show nheader and data for ppm file. Create use: $ python3 m_image.py > im.ppm
+	#print('P3')
+	#print('2 3')
+	#print('255')
+	#for j in range(2):
+	#	for i in range(3):
+	#		print(str(im[i][j].r)+'\n'+str(im[i][j].g)+'\n'+str(im[i][j].b))
