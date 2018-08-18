@@ -31,9 +31,8 @@ class PPM(object):
 		# --- Pixels data from image file black/white mode. ----
 		__temp = im_data[3:] # Pixels from image.
 		_k_index = 3
-
+		# Color image
 		if self.colormodel=='P3':
-			# Color image
 			for i in range(self.dim[0]):
 				for j in range(self.dim[1]):
 					if color_channel > 3:
@@ -81,10 +80,20 @@ class PPM(object):
 		with open(self.filename,'w') as fn: # Open file. First write header of PPM file format.
 			if self.colormodel=='color':
 				fn.write('P3\n')
-				fn.write(str(self.dim[0]+self.dim[1])+'')
+				fn.write( str(self.dim[0]+self.dim[1])+'' )
+				for i in self.dim[0]:
+					for j in self.dim[1]:
+						fn.write( str( self.Img[i][j].r ) )
+						fn.write( str( self.Img[i][j].g ) )
+						fn.write( str( self.Img[i][j].b ) )
 
 			else: # Black and white images.
 				fn.write('P2\n')
+				fn.write( str(self.dim[0]+self.dim[1])+'' )
+				for i in self.dim[0]:
+					for j in self.dim[1]:
+						fn.write( str( self.Img[i][j] ) )
+				
 			
 		print('\nSave')
 
@@ -112,13 +121,22 @@ class RGB(object):
 class MatrixImage(object):
 	'''
 	Image matrix, operations/methods over matrix and vectors.. 
+	* dim - dimension of image
+	* color - 3 for RGB (red, green, blue) and 2 for black and white images
 	'''
-	def __init__(self, dim):
+	def __init__(self, dim, color='3'):
+
 		self.dim = dim
 		self.__lin = dim[0]
 		self.__col = dim[1]
-		#self.Matrix = [ [ RGB() for j in range(dim[1])] for i in range(dim[0]) ]
-		self.__matrix = self.__col*[ self.__lin*[ RGB() ] ]
+		# self.Matrix = [ [ RGB() for j in range(dim[1])] for i in range(dim[0]) ]
+		# 
+		# Color images
+		if color=='3':
+			self.__matrix = self.__col*[ self.__lin*[ RGB() ] ]
+		# Black and white image
+		elif color=='2':
+			self.__matrix = self.__col*[ self.__lin*[ 0 ] ]
 	
 	# Checar compatibilidade de tipo na atribuição (caso int ou tupla).
 	@property
