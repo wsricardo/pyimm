@@ -24,15 +24,17 @@
 # File images PPM (ascii)
 class PPM(object):
 	
-	def __init__(self, dim=None, color = None, filename=None):
-		'''
+	def __init__(self, width = None, height = None, color = None, filename=None):
+		"""
 		Create object image file.
 		dim -> size image
 		color -> P3 = color, P2 = gray scale.
-		'''
-
+		"""
+		self.width = width
+		self.height = height
+		self.dim = []
 		self.filename = filename
-		if dim != None: self.dim = dim[0], dim[1]
+		if width  != None: self.dim = width, height
 		self.color = color
 		self.image = None
 	
@@ -40,7 +42,7 @@ class PPM(object):
 	# image matrix, and define dimension 
 	# of image when file.
 	def __parser_PPM(self, im_data):
-		'''
+		"""
 		Parser PPM image file (ASCII format).
 		--------------------------------------
 
@@ -50,17 +52,18 @@ class PPM(object):
 		* numero máximo de cores (255);
 		* valores inteiros entre 0 e 255 para pixeis 
 		da imagem (de acordo com tamanho).
-		'''
+		"""
 		# 
 		print('\nParser file PPM.')
 		
 		im_data.remove('')
-		if self.dim == None: # Size image
+		if  self.width == None: # Size image width and height
 			dim = im_data[2].split()
 			self.dim = tuple( ( int(dim[0]), int(dim[1]) ) )
 		if str.upper(im_data[0]) != 'P3' and str.upper(im_data[0]) != 'P2': return 'Fail in spec color(Must be P3 or P2).'
 		self.color = '3' if im_data[0]=='P3' else '2'
-		im = MatrixImage( [int(self.dim[0]), int(self.dim[1] )], self.color )
+		print(">>>", self.dim)
+		im = MatrixImage( int(self.dim[0]), int(self.dim[1] ), self.color )
 		
 		# --- Pixels data from image file.  ----
 		__temp = im_data[4:] # Pixels from image.
@@ -70,15 +73,15 @@ class PPM(object):
 		# Color image
 		if self.color=='3':
 			
-			for i in range( int(self.dim[1]) ):
-				for j in range( int(self.dim[0]) ):
+			for i in range( int(self.dim[0]) ):
+				for j in range( int(self.dim[1]) ):
 						for k in range(3):
 							_color_vec.append( int(__temp[_k_index]) )
 							_k_index +=  1   # Next line of image file PPM. 
-							print('_k_index = %d'%(_k_index))
-						print('#', _color_vec)	
+							#print('_k_index = %d'%(_k_index))
+						#print('#', _color_vec)	
 						im[i][j].r, im[i][j].g, im[i][j].b  = list( [ _color_vec[0], _color_vec[1], _color_vec[2] ] ) 
-						print("##", im[i][j].r, im[i][j].g, im[i][j].b)
+						#print("##", im[i][j].r, im[i][j].g, im[i][j].b)
 						_color_vec = [] # reset
 						
 
@@ -98,9 +101,9 @@ class PPM(object):
 				
 	# Open file (ASCII).
 	def open(self, filename):
-		'''
+		"""
 		Open Image file.
-		'''
+		"""
 		image_data = []
 		self.filename = filename
 		with open(self.filename, 'r') as fn:
@@ -112,12 +115,12 @@ class PPM(object):
 
 	# Save file image.
 	def save(self, Img, filename):
-		'''
+		"""
 		Save image.
 		save(self, Img, filename)
 		Img -> Object ImageMatrix
 		filename -> Name of file
-		'''
+		"""
 		self.filename = filename
 		self.dim = Img.dim
 		self.color = Img.color
@@ -183,9 +186,7 @@ class MatrixImage(object):
 	Image matrix, operations/methods over matrix and vectors.. 
 	* dim - dimension of image
 	* color - 3 for RGB (red, green, blue) and 2 for black and white images
-	"""
-	
-	"""
+
     Matrix A m por n,
 	A = [	[lin_1],
 			[lin_2],
@@ -195,13 +196,13 @@ class MatrixImage(object):
 			[lin_m] ]
 	onde A tem m linhas e n colunas. Com lin_i sendo com n colunas, para i=0,1,..., (m-1)
 	"""
-	def __init__(self, dim, color='3', colormodel=None):
-
-		self.dim = dim[1], dim[0] # (lin, col) = (y, x)
+	def __init__(self, width, height, color='3', colormodel=None):
+		# largura, altura == width, height
+		self.dim = width, height # (lin, col) = (largura, altura) == (width, height)
 		self.color = color
 		self.colormodel = colormodel # RGB, CMYK, etc. Color models.
-		self.__lin = dim[1]
-		self.__col = dim[0]
+		self.__lin = width
+		self.__col = height
 		# self.Matrix = [ [ RGB() for j in range(dim[1])] for i in range(dim[0]) ]
 		# 
 		# Color images
@@ -226,9 +227,10 @@ class MatrixImage(object):
 # Function tests processsing
 def tests():
 	import random
-	out = MatrixImage((300, 300), '3')
+	
+	out = MatrixImage(width=400, height=300, color='3')
 	#in_img = MatrixImage(( im.dim[1], im.dim[0]), '3')
-	m,n = out.dim[1],out.dim[0]
+	m,n = out.dim[0],out.dim[1]
 	imfile = PPM((300,300), '3')
 	for i in range(m):
 		for j in range(n):
@@ -243,7 +245,7 @@ def tests2():
 	
 # tests and examples of use modules.
 if __name__=="__main__":
-	l = PPM((2,3), '3')
+	"""l = PPM((2,3), '3')
 	img = l.open('test.ppm')
 	im = MatrixImage((2,3),'3')
 	
@@ -257,5 +259,33 @@ if __name__=="__main__":
 	print('>', img.matrix)
 	print('>>', img[0][0].r)
 	print('\nTESTS\n...')
-	tests()
+	tests()"""
+	
+	# Create image I 
+	# imagem I com MatrixImage(largura, altura)
+	# Criando arquivo de imagem -> PPM( (largura, altura), '3' ); '3' - color 
+	p = PPM(color='3')
+	im = p.open('../examples/cat.ppm')
+	print(">",im.dim)
+	import time
+	import random
+	time.sleep(3)
+	input("press enter\b")
+	for i in range(im.dim[0]):
+		for j in range(im.dim[1]):
+			
+			im[i][j].r, im[i][j].g, im[i][j].b = ( 
+													int( (random.randint(0,255)*im[i][j].r + im[i][j].r
+													+im[i][j].r)/2 ),
+													int( (im[i][j].g + im[i][j].g
+													+im[i][j].g)/2 ) ,
+													int( (im[i][j].b + im[i][j].b
+													+ im[i][j].b)/2 )   
+													)
+				
+			im[i][j].centralizergb()
+			
+			
+	p.save(im, 'cat1.ppm')
+	print('>',im)
 	
