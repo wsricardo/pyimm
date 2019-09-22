@@ -7,7 +7,7 @@ def fractal(Img, max_iterations, m=400, n=400, F_color=None ):
 	percent_pixel = 0.0
 	nPixel =float(m*n)
 	color = pyimm.RGB()
-	if F_color==None: F_color = [lambda k: k**2, 0, 0]
+	if F_color==None: F_color = [lambda i: i*sin(i)  + cos(i), lambda i: i*cos(i) + i, lambda i: cos(i) + 1 + i**5]
 	alfa = float(n)/float(m)
 	#a,b = alfa*(-2.5), alfa*1.0 #interval x
 	#c,d = alfa*(-1.5),alfa*1.5 #iterval y
@@ -47,8 +47,8 @@ def fractal(Img, max_iterations, m=400, n=400, F_color=None ):
 			#iteration = int(log(sqrt(x*x+y*y))/2**iteration)
 
 			color.r = int(F_color[0](iteration))
-			color.g = int(F_color[1])
-			color.b = int(F_color[2])
+			color.g = int(F_color[1](iteration))
+			color.b = int(F_color[2](iteration))
 
 			color.centralizergb()
 

@@ -231,7 +231,7 @@ def tests():
 	out = MatrixImage(width=400, height=300, color='3')
 	#in_img = MatrixImage(( im.dim[1], im.dim[0]), '3')
 	m,n = out.dim[0],out.dim[1]
-	imfile = PPM((300,300), '3')
+	imfile = PPM(300,300, '3')
 	for i in range(m):
 		for j in range(n):
 			out[i][j].r = random.randint(0,255) 
