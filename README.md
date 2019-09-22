@@ -1,4 +1,3 @@
-
 #PYIMM
 
 Module for create image PPM.
