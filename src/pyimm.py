@@ -161,7 +161,7 @@ class RGB(object):
 		self.b = 0
 		
 	def __repr__(self):
-		return "(red, green, blue) =\n\t\t\t(%d, %d, %d)"%(self.r, self.g, self.b)
+		return "\n\t(%d, %d, %d)"%(self.r, self.g, self.b)
 	
 	def centralizergb(self):
 		if self.r < 0:
