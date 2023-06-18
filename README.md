@@ -1,8 +1,9 @@
-<h3>
-<b>PYIMM</b>
-</h3>
-<br/>
+# PYIMM
+
 Biblioteca para manipular arquivos de imagens
 no formato PPM (ascii).
-<br/>
-https://wsricardo.github.io
+
+
+[https://wsricardo.github.io](https://wsricardo.github.io)
+
+[My Blog](https://wsricardo.blogspot.com)
