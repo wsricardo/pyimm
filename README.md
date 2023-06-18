@@ -3,6 +3,7 @@
 Biblioteca para manipular arquivos de imagens
 no formato PPM (ascii).
 
+Library for manipulate PPM images format.
 
 [https://wsricardo.github.io](https://wsricardo.github.io)
 
