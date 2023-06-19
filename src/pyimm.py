@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Author: Wandeson Ricardo
-# Instagram: @wsricardo.arts
+# Instagram: @wsricardo22
 # https://github.com/wsricardo
 # Github: https://github.com/wsricardo
 # Blog: www.wsricardo.blogspot.com
@@ -288,4 +288,3 @@ if __name__=="__main__":
 			
 	p.save(im, 'cat1.ppm')
 	print('>',im)
-	
