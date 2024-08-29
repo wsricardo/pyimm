@@ -1,130 +1,60 @@
-#!/usr/bin/env python3
-#-*- coding: utf-8 -*-
 #-------------------------------------------------------------------------------
 # Name:         PPM
-# Purpose:      Save/Read image format PPM
+# Purpose:      Save image format PPM
 #
 # Author:      Wandeson Ricardo
 #
 # Created:     26/02/2013
 # Copyright:   (c) 2013
-# License:      GPL
-# Blog:		www.wanartsci.blogspot.com
-#		www.gaenos.blogspot.com
+# Licence:     GPL
 #-------------------------------------------------------------------------------
-
-# --- NOTAS -  Modifica��es e Corre��es de Projeto ---
-# Necess�rio altera��es e limpeza no codigo
-# na passagem para fun��es usar o argumento <MatrixImage>.Matrix
-# selecionando a matriz que representa a imagem para manipula��o
-# corre��es na classe PPM no metodo __init__ para permitir
-# a cria��o da matriz duma imagem inicial com valores nulos
-# para casos de sinteses de imagens; tratando esse caso
-# de escolha de cria��o.
+#!/usr/bin/env python
 
 from matrixImage import*
 
-# Manipulate image file ppm format (save file).  
+
+#Manipulate image file ppm format (save file).
 class PPM:
-    
-    def __init__(self, name_file=None, dim = None, mode='color',mode_file='r'):
+    """
+        Write image file format ppm.
+    """
+    def __init__(self, name_file, row, columm, mode='color'):
+        """
+
+        :rtype: object
+        """
         self.name_file = name_file
-        self.dim = dim # dimension of image (pixels).
-        self.mode = mode # Color (P3) or gray scale (P2)
-        self.Img_file = None
-        # Matrix for image (channels included if rgb)
-        #self.Img = MatrixImage(self.dim,self.mode).matrix
-        # Decis�o de Projeto : em qual modo abrir o arquivo?
-        # Obs.: modo escrita apaga coteudo sobrescrevendo 
-        # se j� existe ou cria se n�o existir.
-        #self.Img_file = open(self.name_file,'w')
-    
-    # Open read file PPM images.
-    def iread(self):
-        """
-        Open read file PPM and return image (matrixImage).
-        """
-        i, j, k, c = 0, 0, 0, 0
-        
-        if self.name_file is not None: 
-            self.Img_file = open(self.name_file, 'r')
-        else:
-            return False
-        im_temp = self.Img_file.read()
-        img = im_temp.split('\n')
-        self.mode = img[0]
-        # Remove element in index -1. (end list, element empty).
-        img.pop(-1) 
-        # dimension of image. It is in type 'string'. 'm n' in the line of file.
-        temp = img[1].split() 
-        # Tuple with dimension of image (m,n); m rows and n columns.
-        print('temp',temp)
-        self.dim = ( int( temp[0] ), int( temp[1] ) )
-        # Create object image fro MatrixImage class.
-        self.Img = MatrixImage( self.dim, self.mode ).matrix
+        self.row, self.columm = row, columm
+        self.mode = mode
+        self.Img_file = open(name_file,'w')
+        self.Img_file.write('P3\n'+' '+str(self.columm)+' '+str(self.row)+' 255\n')
+        #self.putPixel = lambda Pixel: self.Img_file.write( (Pixel[i][j].r+' ' +
+         #                                                   Pixel[i][j].g+' '+
+         #                                                   Pixel[i][j].b))
+        pass
+    #No implemented in the momment
+    def read(self):
 
-        print(type(img),img)
-        # Convert of string to integer color pixel values from file. 
-        # version 2, maybe alterations for version Python3 in this line.
-        #img = map( lambda p: int(p), img[4:] ) 
-        img = [ int(i) for i in img[3:] ]
-        print('>',len(img),img)
-        l = self.dim[0]*self.dim[1]*3 # Dimension of image for define size vector
-        # Image mode color
-        if self.mode == 'P3':
-            
-            # First implementation to map pixels in 
-            # file and set Matrix of image.
-            # Reading content in file image PPM in list
-            # Read elements from list to matrix image.
-            #for k in range(l):
-            
-                 
-            if c==0: 
-                self.Img[i][j].r  = img[k]
-                c += 1
-            elif c==1: 
-                self.Img[i][j].b  = img[k] 
-                c += 1
-            elif c==2:                
-                self.Img[i][j].g  = img[k]
-                c = 0
-                j = j + 1 # Next collum.
+        pass
 
-            # Next line.
-            i = i + 1
-            k += 1
-                   
-        # Black and White color
-        elif self.mode == 'P2':
-		
-            # If image mode is black/white
-            # c = 0
-            for c in img[3:]:
-                if i >= self.dim[0]:
-                    i += 1
-                else:
-                    self.Img[i][j] = c
-                    j += 1
-        else:
-			
-            return 0
-        
-        return 1 # return self.Img
+    def writePixel(self,Pixel,i,j):
+        self.Pixel = Pixel
+        self.Img_file.write((str(Pixel[i][j].r)+' '
+                             + str(Pixel[i][j].g)+' '+str(Pixel[i][j].b)))
+        pass
 
-
-    def write(self):
+    def write(self, Img):
         self.Img = Img
-        self.Img_file.write('P3\n'+str(self.columm)+' '+str(self.row)+'\n255\n')
         for i in range(0,self.row):
             for j in range(0,self.columm):
-                self.Img_file.write(str(self.Img[i][j].r)+'\n'
-                                    +str(self.Img[i][j].g)+'\n'
+                self.Img_file.write(str(self.Img[i][j].r)+' '
+                                    +str(self.Img[i][j].g)+' '
                                     +str(self.Img[i][j].b)+'\n')
 
         self.save()
+        pass
 
     def save(self):
         self.Img_file.close()
-        print('Saved...')
-        return True
+        print 'Saved...'
+        pass
